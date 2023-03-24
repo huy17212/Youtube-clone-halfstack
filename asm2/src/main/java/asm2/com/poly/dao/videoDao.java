@@ -10,6 +10,7 @@ public interface videoDao {
 	video findByHref(String href);
 	List<video> findAll();
 	List<video> findAll(Integer pageNumber, Integer pageSize);
+	List<video> findByTitle(String title);
 	video create (video entity);
 	video update (video entity);
 	video delete (video entity);

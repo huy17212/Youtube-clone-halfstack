@@ -51,4 +51,9 @@ public class videoServiceImpl implements videoService {
 		return service.delete(entity);
 	}
 
+	@Override
+	public List<video> findByTitle(String title) {
+		return service.findByTitle(title);
+	}
+
 }

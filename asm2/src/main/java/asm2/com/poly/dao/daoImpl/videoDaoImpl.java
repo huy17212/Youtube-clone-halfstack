@@ -1,5 +1,6 @@
 package asm2.com.poly.dao.daoImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import asm2.com.poly.dao.hibernateMethods;
@@ -32,6 +33,18 @@ public class videoDaoImpl extends hibernateMethods<video> implements videoDao {
 	@Override
 	public video delete(video entity) {
 		return null;
+	}
+
+	@Override
+	public List<video> findByTitle(String title) {
+		List<video> videos = findAll();
+		List<video> temp = new ArrayList<>();
+		for(video item : videos) {
+			if(item.getTitle().contains(title) || item.getDiscription().contains(title)) {
+				temp.add(item);
+			}
+		}
+		return temp;
 	}
 	
 }

@@ -73,7 +73,7 @@ public class hibernateMethods<T>{
 	
 	public T create(T entity) {
 		try {
-//			entityManger.getTransaction().begin();
+			entityManger.getTransaction().begin();
 			entityManger.persist(entity);
 			entityManger.getTransaction().commit();
 			return entity;

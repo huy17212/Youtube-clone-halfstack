@@ -17,12 +17,14 @@ import asm2.com.poly.service.historyService;
 import asm2.com.poly.service.videoService;
 import asm2.com.poly.service.Impl.historyServiceImpl;
 import asm2.com.poly.service.Impl.videoServiceImpl;
+import asm2.com.poly.thread.threadCountView;
 
-@WebServlet(urlPatterns = {"/watch", "/dislike", "/like"})
+@WebServlet(urlPatterns = { "/watch", "/dislike", "/like" })
 public class VideoController extends HttpServlet {
 
 	private videoService serviceVideo = new videoServiceImpl();
 	private historyService serviceHistory = new historyServiceImpl();
+	private history historyUserWatchVideo;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,12 +37,12 @@ public class VideoController extends HttpServlet {
 			doGetWatch(req, resp, href, sesstion);
 			break;
 
-		case "/dislike"	:{
+		case "/dislike": {
 			href = req.getParameter("href");
 			doGetDislike(req, resp, sesstion, href);
 			break;
 		}
-		case "/like":{
+		case "/like": {
 			href = req.getParameter("href");
 			doGetLike(req, resp, sesstion, href);
 			break;
@@ -55,22 +57,23 @@ public class VideoController extends HttpServlet {
 		try {
 			resp.setContentType("application/json");
 			video video = serviceVideo.findByHref(href);
-			
-			account account =(account) sesstion.getAttribute(finalVariable.CURRENTUSER);
-			
+
+			account account = (account) sesstion.getAttribute(finalVariable.CURRENTUSER);
+
 			history historyUserWatchVideo = serviceHistory.findByUserAndViewId(account.getId(), video.getId());
 			video.setLikenumber(video.getLikenumber() + 1);
 
 			historyUserWatchVideo.setIsliked(true);
-			
+
 			video result2 = serviceVideo.update(video);
 			history result1 = serviceHistory.update(historyUserWatchVideo);
-			if(result1 != null && result2 != null) {
+
+			if (result1 != null && result2 != null) {
 				resp.setStatus(204);
-			}else {
+			} else {
 				resp.setStatus(400);
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -79,20 +82,20 @@ public class VideoController extends HttpServlet {
 		try {
 			resp.setContentType("application/json");
 			video video = serviceVideo.findByHref(href);
-			account account =(account) sesstion.getAttribute(finalVariable.CURRENTUSER);
+			account account = (account) sesstion.getAttribute(finalVariable.CURRENTUSER);
 			history historyUserWatchVideo = serviceHistory.findByUserAndViewId(account.getId(), video.getId());
-			
+
 			historyUserWatchVideo.setIsliked(false);
 			video.setLikenumber(video.getLikenumber() - 1);
-			
+
 			video result1 = serviceVideo.update(video);
 			history result2 = serviceHistory.update(historyUserWatchVideo);
-			if(result1 != null && result2 != null) {
+			if (result1 != null && result2 != null) {
 				resp.setStatus(204);
-			}else {
+			} else {
 				resp.setStatus(400);
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -105,12 +108,22 @@ public class VideoController extends HttpServlet {
 			account currentuser = (account) session.getAttribute(finalVariable.CURRENTUSER);
 
 			if (currentuser != null) {
-				history historyUserWatchVideo = serviceHistory.findByUserAndViewId(currentuser.getId(), video.getId());
-				req.setAttribute("history", historyUserWatchVideo);
-			} else {
-				
+				historyUserWatchVideo = serviceHistory.findByUserAndViewId(currentuser.getId(), video.getId());
+				if (historyUserWatchVideo != null) {
+					req.setAttribute("history", historyUserWatchVideo);
+				} else {
+					history history = new history();
+					history.setAccountid(currentuser);
+					history.setVideoid(video);
+					history.setIsliked(false);
+					history.setIsshare(false);
+
+					serviceHistory.create(null);
+					req.setAttribute("history", historyUserWatchVideo);
+				}
 			}
-			
+			threadCountView thread = new threadCountView(serviceVideo, video);
+			thread.start();
 			req.getRequestDispatcher("views/user/video.jsp").forward(req, resp);
 		} catch (Exception e) {
 			e.printStackTrace();

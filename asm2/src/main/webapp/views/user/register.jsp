@@ -18,7 +18,7 @@
         </div>
     <h2>Sign In</h2>
     <p style="">Use your Google Account</p>
-    <form action="login" method="post">
+    <form action="register" method="post">
         <div class="inputBox">
           <input  type="text" name="username" required onkeyup="this.setAttribute('value', this.value);"  value="">
           <label>Username</label>
@@ -27,10 +27,13 @@
               <input  type="password" name="password" required onkeyup="this.setAttribute('value', this.value);" value="">
               <label>Password</label>
         </div>
+        <div class="inputBox">
+          <input  type="email" name="email" required onkeyup="this.setAttribute('value', this.value);"  value="">
+          <label>Email</label>
+        </div>
         <div>
-            <input type="checkbox">
-            <label for="">Remember me</label>
-            <a style="text-decoration: none; cursor: pointer;" href="register"><label style="margin: 0px 0px 0px 110px;RIGHTcursor: pointer; color: #0984e3;" for="">Create account</label></a>
+            <input type="file" name="file">
+            <br>	
         </div>
         <input style="margin-top: 10px;" type="submit">
       </form>

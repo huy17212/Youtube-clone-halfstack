@@ -97,6 +97,16 @@ public class video {
 	public Integer getViews() {
 		return views;
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "video [id=" + id + ", title=" + title + ", discription=" + discription + ", href=" + href + ", poster="
+				+ poster + ", views=" + views + ", shares=" + shares + ", isactive=" + isactive + ", likenumber="
+				+ likenumber + ", commentnumber=" + commentnumber + ", hashtag=" + hashtag + ", datecreate="
+				+ datecreate + ", dateupdate=" + dateupdate + "]";
+	}
 
 	public void setViews(Integer views) {
 		this.views = views;
