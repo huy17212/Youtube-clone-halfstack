@@ -10,13 +10,14 @@
 <title>Document</title>
 <link rel="stylesheet"
 	href="<c:url value='templates/user/css/style.css'/>">
+<%@ include file="/common/user/cdnSweetAlert.jsp"%>
 </head>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" /></script>
 <body>
 	<%@ include file="/common/user/navigation.jsp"%>
-	
-	
+
+
 	<div class="slidebar">
 		<div class="shortcut-links">
 			<a href=""> <img
@@ -61,8 +62,9 @@
 			</div>
 		</div>
 	</div>
-	
-	<div style="margin-left: 60px; padding-left: 10px" class="container play-container">
+
+	<div style="margin-left: 60px; padding-left: 10px"
+		class="container play-container">
 		<div class="row">
 			<div class="play-video">
 				<div>
@@ -78,70 +80,90 @@
 				</div>
 				<h3>${video.title}</h3>
 				<div class="play-video-info">
-					<p>${video.views}Views&bull;2daysago</p>
+					<p>${video.views} Views &bull; ${video.dayUpload}</p>
 					<div class="buttonDesciption">
-					
-						<button type="button" id="likeOrUnlike" style="border: 0px none white; background-color: #F9F9F9; margin-right: 20px">
+
+						<button type="button" id="likeOrUnlike"
+							style="border: 0px none white; background-color: #F9F9F9; margin-right: 20px">
 							<c:choose>
 								<c:when test="${history.isliked}">
 									<img id="1" class="likebutton" style="width: 20px"
 										src="templates/user/images/like2.png" alt="" srcset="">
-									
-							</c:when>
+
+								</c:when>
 								<c:otherwise>
 									<img id="2" class="likebutton" style="width: 20px"
 										src="templates/user/images/like.png" alt="" srcset="">
-										
-								
-							</c:otherwise>
+
+
+								</c:otherwise>
 							</c:choose>
 							<h5 id="likenumber">${video.likenumber}</h5>
 						</button>
-						
-						<button type="button" id="" style="border: 0px none white; background-color: #F9F9F9;  margin-right: 20px">
+
+						<button type="button" id=""
+							style="border: 0px none white; background-color: #F9F9F9; margin-right: 20px">
 							<c:choose>
 								<c:when test="${history.isliked}">
 									<img id="1" class="sharebutton" style="width: 20px"
 										src="templates/user/images/share.png" alt="" srcset="">
-									
-							</c:when>
+
+								</c:when>
 								<c:otherwise>
 									<img id="2" class="sharebutton" style="width: 20px"
 										src="templates/user/images/share.png" alt="" srcset="">
-										
-								
-							</c:otherwise>
+
+
+								</c:otherwise>
 							</c:choose>
 							<h5>${video.shares}</h5>
 						</button>
-						
-						<button type="button" id="" style="border:0px none white;background-color: #F9F9F9;">
+
+						<button type="button" id=""
+							style="border: 0px none white; background-color: #F9F9F9;">
 							<c:choose>
 								<c:when test="${history.isliked}">
 									<img id="1" class="savebutton" style="width: 20px"
 										src="templates/user/images/save.png" alt="" srcset="">
-									
-							</c:when>
+
+								</c:when>
 								<c:otherwise>
 									<img id="2" class="savebutton" style="width: 20px"
 										src="templates/user/images/save.png" alt="" srcset="">
-										
-								
-							</c:otherwise>
+								</c:otherwise>
 							</c:choose>
-							<h5 value="123"></h5>
 						</button>
+
 					</div>
 				</div>
 				<hr>
+
 				<div class="publisher">
-					<img src="<c:url value='templates/user/images/Jack.png'/>" alt="">
+					<img src="<c:url value='templates/user/images/${video.avatar}'/>"
+						alt="">
 					<div>
-						<p>Easy Toturials</p>
+						<p>${video.uploader}</p>
 						<span>500k Subcribers</span>
+						<span>userid ${sessionScope.current_user.id}</span>
+						<span>videoUploaderid ${video.idUploader}</span>
 					</div>
-					<button type="button">Subcribe</button>
+					
+					<c:if test="${sessionScope.current_user.id ne video.idUploader}">
+						<button id="SubcribeOrUnsubcribe" type="button">
+							<c:choose>
+								<c:when test="${history.isliked}">
+									<p class="subcribeButton" id="5">Subcribe</p>
+								</c:when>
+								<c:otherwise>
+									<p class="subcribeButton" id="6">UnSubcribe</p>
+								</c:otherwise>
+							</c:choose>
+						</button>
+					</c:if>
+
+
 				</div>
+
 				<div class="vid-description">
 					<p>${video.discription}</p>
 					<hr>
@@ -174,32 +196,29 @@
 					</c:choose>
 				</div>
 			</div>
-
 			<div class="right-sidebar">
-				<div class="side-video-list">
-					<a href="" class="small-thumnail"> <img
-						src="<c:url value='templates/user/images/thumbnail3.png'/>" alt=""></a>
-					<div class="vid-info">
-						<a href="">Best channel for coding</a>
-						<p>Easy Toturials</p>
-						<p>15k views</p>
+
+				<c:forEach items='${videos}' var='item'>
+					<div class="side-video-list">
+						<a href="" class="small-thumnail"> <img
+							src="<c:url value='templates/user/images/${item.poster}'/>"
+							alt=""></a>
+						<div class="vid-info">
+							<a href="">${item.title}</a>
+							<p>${item.uploader}</p>
+							<p>${item.views}views</p>
+						</div>
 					</div>
-				</div>
-				<div class="side-video-list">
-					<a href="" class="small-thumnail"><img
-						src="<c:url value='templates/user/images/thumbnail5.png'/>" alt=""></a>
-					<div class="vid-info">
-						<a href="">Best channel for coding</a>
-						<p>Easy Toturials</p>
-						<p>15k views</p>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
 
+
 	<input id="videoIdHiddent" type="hidden" value='${video.href}' />
 	<input id="videoLikeNumber" type="hidden" value='${video.likenumber}' />
+
+	<input id="currenUserId" type="hidden" value='${video.idUploader}' />
 
 	<script type="text/javascript">
 		$('#likeOrUnlike').click(
@@ -207,7 +226,6 @@
 					var href = $('#videoIdHiddent').val();
 					var sign = $('.likebutton').attr("id");
 					var likenumber = $('#videoLikeNumber').val() * 1;
-					console.log(likenumber);
 					switch (sign) {
 					case "1": {
 						$.ajax({
@@ -218,11 +236,13 @@
 									$(".likebutton").attr('src',
 											"templates/user/images/like.png");
 									$('.likebutton').attr("id", "2");
-									
+
 									$('#likenumber').html(likenumber);
 									$('#videoLikeNumber').val(likenumber);
 								}).fail(function(err) {
-							alert("Do Again");
+							swal({
+								title : "You Have to login to do this done!",
+							});
 						});
 
 						break;
@@ -236,18 +256,55 @@
 									$(".likebutton").attr('src',
 											"templates/user/images/like2.png");
 									$('.likebutton').attr("id", "1");
-									$('#likenumber').html(likenumber+"");
+									$('#likenumber').html(likenumber + "");
 									$('#videoLikeNumber').val(likenumber);
 								}).fail(function(err) {
-							alert("Do Again");
+							swal({
+								title : "You Have to login to do this done!",
+							});
 						});
 						break;
 					}
 					}
 
 				});
+
+		$('#SubcribeOrUnsubcribe').click(function() {
+			var currentUserId = $('#currenUserId').val();
+			var sign = $('.subcribeButton').attr("id");
+			switch (sign) {
+			case "5": {
+				$.ajax({
+					url : 'subcribe?currentUserid=' + currentUserId
+				}).then(function() {
+					$('.subcribeButton').text("UnSubcribe");
+					$('.subcribeButton').attr("id", "6");
+				}).fail(function(err) {
+					swal({
+						title : "Thank You!",
+					});
+				});
+
+				break;
+			}
+			case "6": {
+				$.ajax({
+					url : 'like?href=' + currentUserId
+				}).then(function() {
+					$('.subcribeButton').text("subcribe");
+					$('.subcribeButton').attr("id", "5");
+				}).fail(function(err) {
+					swal({
+						title : "Try in next time, sorry mate!",
+					});
+				});
+				break;
+			}
+			}
+
+		});
 	</script>
-	
+
 	<script src="<c:url value='templates/user/javascript/script.js'/>">
 		
 	</script>

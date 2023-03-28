@@ -7,9 +7,9 @@ import javax.persistence.Persistence;
 public class contextToHibernate {
 	private static EntityManagerFactory factory;
 	
-	public static EntityManager getEntityManager() {
+	public static EntityManager getEntityManager(String persistenceUnitname) {
 		if(factory == null || factory.isOpen()) {
-			factory = Persistence.createEntityManagerFactory("asmjava42");
+			factory = Persistence.createEntityManagerFactory(persistenceUnitname);
 		}
 		return factory.createEntityManager();
 	}

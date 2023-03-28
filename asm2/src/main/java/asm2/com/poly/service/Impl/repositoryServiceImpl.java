@@ -32,4 +32,9 @@ public class repositoryServiceImpl implements repositoryService {
 		return dao.update(entity);
 
 	}
+
+	@Override
+	public List<repository> findAll() {
+		return dao.findAll();
+	}
 }

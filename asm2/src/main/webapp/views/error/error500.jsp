@@ -118,64 +118,139 @@ keyframes bgshadow { 0% {
 }
 
 45
+
+
 %
 {
 box-shadow
+
+
 :
+
+
 inset
+
+
 0px
+
+
 0px
+
+
 0px
+
+
 0px
-rgba(
+
+
+rgba
+(
+
+
 0
 ,
 0
 ,
 0
 ,
-0.1
-);
+0
+.1
+
+
+)
+;
+
+
 }
 55
+
+
 %
 {
 box-shadow
+
+
 :
+
+
 inset
+
+
 0px
+
+
 0px
+
+
 0px
+
+
 0px
-rgba(
+
+
+rgba
+(
+
+
 0
 ,
 0
 ,
 0
 ,
-0.1
-);
+0
+.1
+
+
+)
+;
+
+
 }
 100
+
+
 %
 {
 box-shadow
+
+
 :
+
+
 inset
+
+
 160px
+
+
 -160px
+
+
 0px
+
+
 5px
-rgba(
+
+
+rgba
+(
+
+
 0
 ,
 0
 ,
 0
 ,
-0.4
-);
+0
+.4
+
+
+)
+;
+
+
 }
 }
 
@@ -231,20 +306,6 @@ a.more-link {
 </head>
 <body>
 	<h1>500 Error Page #2</h1>
-	<p class="zoom-area">
-		<b>CSS</b> animations to make a cool 404 page.
-	</p>
-	<section class="error-container">
-		<span class="four"><span class="screen-reader-text">4</span></span> <span
-			class="zero"><span class="screen-reader-text">0</span></span> <span
-			class="four"><span class="screen-reader-text">4</span></span>
-	</section>
-	<div class="link-container">
-		<a target="_blank"
-			href="https://www.silocreativo.com/en/creative-examples-404-error-css/"
-			class="more-link">Visit the original article</a>
-	</div>
-	<h1>404 Error Page #2</h1>
 	<p class="zoom-area">
 		<b>CSS</b> animations to make a cool 404 page.
 	</p>

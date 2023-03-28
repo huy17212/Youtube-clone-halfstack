@@ -60,7 +60,7 @@
 
 	<div class="container">
 		<div class="banner">
-			<img src="images/banner.png" alt="">
+			<img src="templates/user/images/banner.png" alt="">
 		</div>
 
 		<div class="list-container">
@@ -68,11 +68,11 @@
 				<div class="vid-list">
 					<a href='watch?href=${item.href}'><img src="<c:url value='templates/user/images/${item.poster}'/>" class="thumnail" alt=""></a>
 					<div class="flex-div">
-						<img src="images/Jack.png" alt="">
+						<img src="<c:url value='templates/user/images/${item.avatar}'/>" alt="">
 						<div class="vid-info">
 							<a href="">${item.title}</a>
-							<p>Duy Nguyen</p>
-							<p>${item.views} views &bull; 2 days</p>
+							<p>${item.uploader}</p>
+							<p>${item.views} views &bull; ${item.dayUpload}</p>
 						</div>
 					</div>
 				</div>

@@ -41,6 +41,17 @@ public class account {
 	
 	@Column(name="dateupdate")
 	private Date dateupdate;
+	
+	@Column(name = "nameChannel")
+	private String nameChannel;
+	
+	public String getNameChannel() {
+		return nameChannel;
+	}
+
+	public void setNameChannel(String nameChannel) {
+		this.nameChannel = nameChannel;
+	}
 
 	public Integer getId() {
 		return id;

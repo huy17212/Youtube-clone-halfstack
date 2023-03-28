@@ -18,6 +18,7 @@ public class video {
 	@Column(name = "id")
 	private Integer id;
 	
+	
 	@Column(name = "title")
 	private String title;
 	
@@ -54,6 +55,17 @@ public class video {
 	@Column(name = "dateupdate")
 	private Date dateupdate;
 	
+	@Column(name = "uploader")
+	private String uploader;
+	
+	public String getUploader() {
+		return uploader;
+	}
+
+	public void setUploader(String uploader) {
+		this.uploader = uploader;
+	}
+
 	public Integer getId() {
 		return id;
 	}

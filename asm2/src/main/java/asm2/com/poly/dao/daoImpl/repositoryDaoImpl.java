@@ -13,4 +13,9 @@ public class repositoryDaoImpl extends hibernateMethods<repository> implements r
 		String sql = "SELECT o FROM repository o WHERE o.account.accountid = ?0 and o.repository.statusid = ?1";
 		return super.findMany(repository.class, sql, currentAccount.getId(), statusId);
 	}
+
+	@Override
+	public List<repository> findAll() {
+		return super.findAll(repository.class, false);
+	}
 }

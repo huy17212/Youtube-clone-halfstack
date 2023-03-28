@@ -1,5 +1,6 @@
 package asm2.com.poly.dao;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,11 +9,11 @@ import javax.persistence.TypedQuery;
 import asm2.com.poly.context.contextToHibernate;
 
 public class hibernateMethods<T>{
-
+	Boolean sign = true;
 	public EntityManager entityManger;
 	
 	public hibernateMethods() {
-		entityManger = contextToHibernate.getEntityManager();
+		entityManger = contextToHibernate.getEntityManager("asmjava42");
 //		entityManger.getTransaction().begin();
 	}
 	
@@ -57,7 +58,7 @@ public class hibernateMethods<T>{
 			query.setParameter(i, params[i]);
 		}
 		List<T> result = query.getResultList();
-		if(result == null) {
+		if(result.isEmpty()) {
 			return null;
 		}
 		return result.get(0);
@@ -79,6 +80,7 @@ public class hibernateMethods<T>{
 			return entity;
 		}catch(Exception e) {
 			entityManger.getTransaction().rollback();
+			sign = false;
 			throw new RuntimeException(e);
 		}
 	}
@@ -91,18 +93,20 @@ public class hibernateMethods<T>{
 			return entity;
 		}catch(Exception e) {
 			entityManger.getTransaction().rollback();
+			sign = false;
 			throw new RuntimeException(e);
 		}
 	}
 	
 	public T delete(T entity) {
 		try {
-//			entityManger.getTransaction().begin();
+			entityManger.getTransaction().begin();
 			entityManger.remove(entity);
 			entityManger.getTransaction().commit();
 			return entity;
 		}catch(Exception e) {
 			entityManger.getTransaction().rollback();
+			sign = false;
 			throw new RuntimeException(e);
 		}
 	}
