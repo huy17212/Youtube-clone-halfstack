@@ -6,6 +6,7 @@ import asm2.com.poly.dao.repositoryDao;
 import asm2.com.poly.dao.daoImpl.repositoryDaoImpl;
 import asm2.com.poly.entity.account;
 import asm2.com.poly.entity.repository;
+import asm2.com.poly.entity.repositoryStatus;
 import asm2.com.poly.service.repositoryService;
 
 public class repositoryServiceImpl implements repositoryService {
@@ -13,7 +14,7 @@ public class repositoryServiceImpl implements repositoryService {
 	repositoryDao dao = new repositoryDaoImpl();
 
 	@Override
-	public List<repository> findAllByStatusId(account currentAccount, Integer statusId) {
+	public List<repository> findAllByStatusId(account currentAccount, repositoryStatus statusId) {
 		return dao.findAllByStatusId(currentAccount, statusId);
 	}
 

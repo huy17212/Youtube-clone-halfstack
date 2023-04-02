@@ -40,6 +40,9 @@ public class history {
 	
 	@Column(name = "isshare")
 	private Boolean isshare;
+	
+	@Column(name = "islater")
+	private Boolean islater;
 
 	public Integer getId() {
 		return id;
@@ -67,6 +70,30 @@ public class history {
 
 	public Date getVieweddate() {
 		return vieweddate;
+	}
+
+	public account getAccount() {
+		return account;
+	}
+
+	public void setAccount(account account) {
+		this.account = account;
+	}
+
+	public video getVideo() {
+		return video;
+	}
+
+	public void setVideo(video video) {
+		this.video = video;
+	}
+
+	public Boolean getIslater() {
+		return islater;
+	}
+
+	public void setIslater(Boolean islater) {
+		this.islater = islater;
 	}
 
 	public void setVieweddate(Date vieweddate) {

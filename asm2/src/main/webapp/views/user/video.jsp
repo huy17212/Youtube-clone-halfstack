@@ -48,17 +48,11 @@
 			<hr>
 			<div class="subcribed-list">
 				<h3>SUBCRIBED</h3>
-				<a href=""> <img src="images/Jack.png">
-					<p>Jack Nicholson</p>
-				</a> <a href=""> <img src="images/simon.png">
-					<p>Simon Sim</p>
-				</a> <a href=""> <img src="images/tom.png">
-					<p>Tom Hardy</p>
-				</a> <a href=""> <img src="images/megan.png">
-					<p>Megan Mark</p>
-				</a> <a href=""> <img src="images/cameron.png">
-					<p>James Cameron</p>
-				</a>
+				<c:forEach items='${listAccountSubcriber}' var='item'>
+					<a href=""> <img src="templates/user/images/${item.avatar}">
+						<p>${item.nameChannel}</p>
+					</a>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
@@ -80,7 +74,7 @@
 				</div>
 				<h3>${video.title}</h3>
 				<div class="play-video-info">
-					<p>${video.views} Views &bull; ${video.dayUpload}</p>
+					<p>${video.views}Views&bull;${video.dayUpload}</p>
 					<div class="buttonDesciption">
 
 						<button type="button" id="likeOrUnlike"
@@ -94,38 +88,32 @@
 								<c:otherwise>
 									<img id="2" class="likebutton" style="width: 20px"
 										src="templates/user/images/like.png" alt="" srcset="">
-
-
 								</c:otherwise>
 							</c:choose>
 							<h5 id="likenumber">${video.likenumber}</h5>
 						</button>
 
-						<button type="button" id=""
+						<button type="button" id="shareOrUnshare"
 							style="border: 0px none white; background-color: #F9F9F9; margin-right: 20px">
 							<c:choose>
-								<c:when test="${history.isliked}">
+								<c:when test="${history.isshare}">
 									<img id="1" class="sharebutton" style="width: 20px"
-										src="templates/user/images/share.png" alt="" srcset="">
-
+										src="templates/user/images/share2.png" alt="" srcset="">
 								</c:when>
 								<c:otherwise>
 									<img id="2" class="sharebutton" style="width: 20px"
 										src="templates/user/images/share.png" alt="" srcset="">
-
-
 								</c:otherwise>
 							</c:choose>
-							<h5>${video.shares}</h5>
+							<h5 id="sharenumber">${video.shares}</h5>
 						</button>
 
-						<button type="button" id=""
+						<button type="button" id="saveOrUnsave"
 							style="border: 0px none white; background-color: #F9F9F9;">
 							<c:choose>
-								<c:when test="${history.isliked}">
+								<c:when test="${history.islater}">
 									<img id="1" class="savebutton" style="width: 20px"
-										src="templates/user/images/save.png" alt="" srcset="">
-
+										src="templates/user/images/save2.png" alt="" srcset="">
 								</c:when>
 								<c:otherwise>
 									<img id="2" class="savebutton" style="width: 20px"
@@ -143,15 +131,15 @@
 						alt="">
 					<div>
 						<p>${video.uploader}</p>
-						<span>500k Subcribers</span>
-						<span>userid ${sessionScope.current_user.id}</span>
-						<span>videoUploaderid ${video.idUploader}</span>
+						<span>500k Subcribers</span> <span>userid
+							${sessionScope.current_user.id}</span> <span>idUploader
+							${video.idUploader}</span>
 					</div>
-					
+
 					<c:if test="${sessionScope.current_user.id ne video.idUploader}">
 						<button id="SubcribeOrUnsubcribe" type="button">
 							<c:choose>
-								<c:when test="${history.isliked}">
+								<c:when test="${isSubcribe}">
 									<p class="subcribeButton" id="5">Subcribe</p>
 								</c:when>
 								<c:otherwise>
@@ -200,7 +188,7 @@
 
 				<c:forEach items='${videos}' var='item'>
 					<div class="side-video-list">
-						<a href="" class="small-thumnail"> <img
+						<a href="watch?href=${item.href}" class="small-thumnail"> <img
 							src="<c:url value='templates/user/images/${item.poster}'/>"
 							alt=""></a>
 						<div class="vid-info">
@@ -217,7 +205,7 @@
 
 	<input id="videoIdHiddent" type="hidden" value='${video.href}' />
 	<input id="videoLikeNumber" type="hidden" value='${video.likenumber}' />
-
+	<input id="videoShareNumber" type="hidden" value='${video.shares}' />
 	<input id="currenUserId" type="hidden" value='${video.idUploader}' />
 
 	<script type="text/javascript">
@@ -269,40 +257,194 @@
 
 				});
 
-		$('#SubcribeOrUnsubcribe').click(function() {
-			var currentUserId = $('#currenUserId').val();
-			var sign = $('.subcribeButton').attr("id");
-			switch (sign) {
-			case "5": {
-				$.ajax({
-					url : 'subcribe?currentUserid=' + currentUserId
-				}).then(function() {
-					$('.subcribeButton').text("UnSubcribe");
-					$('.subcribeButton').attr("id", "6");
-				}).fail(function(err) {
-					swal({
-						title : "Thank You!",
-					});
-				});
+		$('#saveOrUnsave')
+				.click(
+						function() {
+							var href = $('#videoIdHiddent').val();
+							var sign = $('.savebutton').attr("id");
+							switch (sign) {
+							case "2": {
+								$
+										.ajax({
+											url : 'save?href=' + href
+										})
+										.then(
+												function() {
+													$(".savebutton")
+															.attr('src',
+																	"templates/user/images/save2.png");
+													$('.savebutton').attr("id",
+															"1");
+													swal({
+														title : "Thank You for save, that was nice job!",
+													});
+												})
+										.fail(
+												function(err) {
+													swal({
+														title : "Try in next time, sorry mate!",
+													});
+												});
+								break;
+							}
+							case "1": {
+								$
+										.ajax({
+											url : 'unsave?href=' + href
+										})
+										.then(
+												function() {
+													$(".savebutton")
+															.attr('src',
+																	"templates/user/images/save.png");
+													$('.savebutton').attr("id",
+															"2");
+													swal({
+														title : "Thank You! I' ll try to better for save!",
+													});
+												})
+										.fail(
+												function(err) {
+													swal({
+														title : "Try in next time, sorry mate!",
+													});
+												});
+								break;
+							}
+							}
 
-				break;
-			}
-			case "6": {
-				$.ajax({
-					url : 'like?href=' + currentUserId
-				}).then(function() {
-					$('.subcribeButton').text("subcribe");
-					$('.subcribeButton').attr("id", "5");
-				}).fail(function(err) {
-					swal({
-						title : "Try in next time, sorry mate!",
-					});
-				});
-				break;
-			}
-			}
+						});
 
-		});
+		$('#SubcribeOrUnsubcribe')
+				.click(
+						function() {
+							var currentUserId = $('#currenUserId').val();
+							var sign = $('.subcribeButton').attr("id");
+							switch (sign) {
+							case "5": {
+								$
+										.ajax(
+												{
+													url : 'subcribe?currentUserid='
+															+ currentUserId
+												})
+										.then(
+												function() {
+													$('.subcribeButton').text(
+															"UnSubcribe");
+													$('.subcribeButton').attr(
+															"id", "6");
+													swal({
+														title : "Thank You for subcriber me!",
+													});
+												})
+										.fail(
+												function(err) {
+													swal({
+														title : "Try in next time, sorry mate!",
+													});
+												});
+								break;
+							}
+							case "6": {
+								$
+										.ajax(
+												{
+													url : 'unsubcribe?currentUserid='
+															+ currentUserId
+												})
+										.then(
+												function() {
+													$('.subcribeButton').text(
+															"subcribe");
+													$('.subcribeButton').attr(
+															"id", "5");
+													swal({
+														title : "Thank You! I' ll try to better for your subcriber",
+													});
+												})
+										.fail(
+												function(err) {
+													swal({
+														title : "Try in next time, sorry mate!",
+													});
+												});
+								break;
+							}
+							}
+
+						});
+
+		$('#shareOrUnshare')
+				.click(
+						function() {
+							var href = $('#videoIdHiddent').val();
+							var sign = $('.sharebutton').attr("id");
+							var shareNumber = $('#videoShareNumber').val() * 1;
+							switch (sign) {
+							case "2": {
+								$
+										.ajax({
+											url : 'share?href=' + href
+										})
+										.then(
+												function() {
+													shareNumber++;
+													$(".sharebutton")
+															.attr('src',
+																	"templates/user/images/share2.png");
+													$('.sharebutton').attr(
+															"id", "1");
+
+													$('#sharenumber').html(
+															shareNumber);
+													$('#videoShareNumber').val(
+															shareNumber);
+													swal({
+														title : "Thank You!",
+													});
+												})
+										.fail(
+												function(err) {
+													swal({
+														title : "Try in next time, sorry mate!",
+													});
+												});
+								break;
+							}
+							case "1": {
+								$
+										.ajax({
+											url : 'unshare?href=' + href
+										})
+										.then(
+												function() {
+													shareNumber--;
+													$(".sharebutton")
+															.attr('src',
+																	"templates/user/images/share.png");
+													$('.sharebutton').attr(
+															"id", "2");
+
+													$('#sharenumber').html(
+															shareNumber);
+													$('#videoShareNumber').val(
+															shareNumber);
+													swal({
+														title : "Thank You!",
+													});
+												})
+										.fail(
+												function(err) {
+													swal({
+														title : "Try in next time, sorry mate!",
+													});
+												});
+								break;
+							}
+							}
+
+						});
 	</script>
 
 	<script src="<c:url value='templates/user/javascript/script.js'/>">

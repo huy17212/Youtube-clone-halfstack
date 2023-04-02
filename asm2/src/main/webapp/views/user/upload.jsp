@@ -158,17 +158,11 @@
 			<hr>
 			<div class="subcribed-list">
 				<h3>SUBCRIBED</h3>
-				<a href=""> <img src="images/Jack.png">
-					<p>Jack Nicholson</p>
-				</a> <a href=""> <img src="images/simon.png">
-					<p>Simon Sim</p>
-				</a> <a href=""> <img src="images/tom.png">
-					<p>Tom Hardy</p>
-				</a> <a href=""> <img src="images/megan.png">
-					<p>Megan Mark</p>
-				</a> <a href=""> <img src="images/cameron.png">
-					<p>James Cameron</p>
-				</a>
+				<c:forEach items='${listAccountSubcriber}' var='item'>
+					<a href=""> <img src="templates/user/images/${item.avatar}">
+						<p>${item.nameChannel}</p>
+					</a>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
@@ -229,7 +223,8 @@
 						</div>
 
 						<div style="display: flex" class="flex-div">
-							<h4 style="margin-right: 1%; width: 180px">Yes, do it for sure.</h4>
+							<h4 style="margin-right: 1%; width: 180px">Yes, do it for
+								sure.</h4>
 							<input value="1" type="radio" name="isactive">
 						</div>
 					</div>

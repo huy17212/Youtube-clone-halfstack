@@ -25,11 +25,12 @@ public class threadCountView extends Thread {
 		try {
 			for (int i = 0; i < 60; i++) {
 					Thread.sleep(1000);
-					i++;
+					System.out.print(i);
 					if(i == 59) {
 						sign = true;
 						video.setViews(video.getViews() + 1);
 						this.servicevideo.update(video);
+						stop();
 					}
 			}
 		} catch (Exception e) {

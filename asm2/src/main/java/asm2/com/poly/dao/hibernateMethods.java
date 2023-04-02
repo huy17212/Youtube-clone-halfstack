@@ -101,7 +101,7 @@ public class hibernateMethods<T>{
 	public T delete(T entity) {
 		try {
 			entityManger.getTransaction().begin();
-			entityManger.remove(entity);
+			entityManger.remove(entityManger.contains(entity) ? entity : entityManger.merge(entity));
 			entityManger.getTransaction().commit();
 			return entity;
 		}catch(Exception e) {

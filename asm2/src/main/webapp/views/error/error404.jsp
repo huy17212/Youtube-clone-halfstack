@@ -161,9 +161,9 @@ a.more-link {
 <link href="templates/user/css/error_page.css">
 </head>
 <body>
-	<h1>404 Error Page #2</h1>
+	<h1>404 Lỗi không tìm thấy trang, Error code: 403</h1>
 	<p class="zoom-area">
-		<b>CSS</b> animations to make a cool 404 page.
+		<b>Sign: </b> Don't leave us, just back out this page and make a simple login.
 	</p>
 	<section class="error-container">
 		<span class="four"><span class="screen-reader-text">4</span></span> <span
@@ -173,7 +173,7 @@ a.more-link {
 	<div class="link-container">
 		<a target="_blank"
 			href="https://www.silocreativo.com/en/creative-examples-404-error-css/"
-			class="more-link">Visit the original article</a>
+			class="more-link">Back to the Homepage</a>
 	</div>
 </body>
 </html>

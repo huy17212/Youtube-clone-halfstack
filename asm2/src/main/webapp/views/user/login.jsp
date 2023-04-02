@@ -28,7 +28,7 @@
               <label>Password</label>
         </div>
         <div>
-            <input type="checkbox">
+            <input name="rememberme" type="checkbox">
             <label for="">Remember me</label>
             <a style="text-decoration: none; cursor: pointer;" href="register"><label style="margin: 0px 0px 0px 110px;RIGHTcursor: pointer; color: #0984e3;" for="">Create account</label></a>
         </div>

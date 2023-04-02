@@ -35,6 +35,8 @@ public class videoDTO {
 	
 	private Integer idUploader;
 
+	private String avatar;
+	
 	public Integer getIdUploader() {
 		return idUploader;
 	}
@@ -42,8 +44,6 @@ public class videoDTO {
 	public void setIdUploader(Integer idUploader) {
 		this.idUploader = idUploader;
 	}
-
-	private String avatar;
 
 	public Integer getId() {
 		return id;

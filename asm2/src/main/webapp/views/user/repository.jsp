@@ -26,8 +26,7 @@
 				<p>Subcription</p>
 			</a> <a href="<c:url value='library'/>"><img
 				src="<c:url value='templates/user/images/library2.png'/>" alt="">
-				<p>Library</p>
-			</a> <a href="history"> <img
+				<p>Library</p> </a> <a href="history"> <img
 				src="<c:url value='templates/user/images/history.png'/>" alt="">
 				<p>History</p>
 			</a> <a href="share"> <img
@@ -43,17 +42,11 @@
 			<hr>
 			<div class="subcribed-list">
 				<h3>SUBCRIBED</h3>
-				<a href=""> <img src="images/Jack.png">
-					<p>Jack Nicholson</p>
-				</a> <a href=""> <img src="images/simon.png">
-					<p>Simon Sim</p>
-				</a> <a href=""> <img src="images/tom.png">
-					<p>Tom Hardy</p>
-				</a> <a href=""> <img src="images/megan.png">
-					<p>Megan Mark</p>
-				</a> <a href=""> <img src="images/cameron.png">
-					<p>James Cameron</p>
-				</a>
+				<c:forEach items='${listAccountSubcriber}' var='item'>
+					<a href=""> <img src="templates/user/images/${item.avatar}">
+						<p>${item.nameChannel}</p>
+					</a>
+				</c:forEach>
 			</div>
 		</div>
 	</div>
@@ -64,8 +57,8 @@
 		</div>
 
 
-		<div style="display: flex" class="showMore">	
-		
+		<div style="display: flex" class="showMore">
+
 			<div class="list-container" style="width: 70%">
 				<c:forEach items='${videos}' var='item'>
 					<div class="vid-list">
