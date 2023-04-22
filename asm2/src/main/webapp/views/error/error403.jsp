@@ -155,6 +155,43 @@ a.more-link {
   margin-top: 50px;
   letter-spacing: 1px;
 }
+
+.error-container > span.three {
+  vertical-align: text-top;
+  width: 156px;
+  height: 156px;
+  border-radius: 999px;
+  background: linear-gradient(-45deg, transparent 0%, rgba(0, 0, 0, 0.06) 50%,  transparent 51%, transparent 100%),
+    linear-gradient(to top right, #99749D, #99749D, #B895AB, #CC9AA6, #D7969E, #ED8687, #ED8687);
+  overflow: hidden;
+  animation: bgshadow 5s infinite;
+}
+.error-container > span.three:before {
+  content: '';
+  display: block;
+  position: absolute;
+  transform: rotate(45deg);
+  width: 90px;
+  height: 90px;
+  background-color: transparent;
+  left: 0px;
+  bottom: 0px;
+  background:
+    linear-gradient(95deg, transparent 0%, transparent 8%, rgba(0, 0, 0, 0.07) 9%, transparent 50%, transparent 100%),
+    linear-gradient(85deg, transparent 0%, transparent 19%, rgba(0, 0, 0, 0.05) 20%, rgba(0, 0, 0, 0.07) 91%, transparent 92%, transparent 100%);
+}
+.error-container > span.three:after {
+  content: '';
+  display: block;
+  position: absolute;
+  border-radius: 999px;
+  width: 70px;
+  height: 70px;
+  left: 43px;
+  bottom: 43px;
+  background: #FDFAF5;
+  box-shadow: -2px 2px 2px 0px rgba(0, 0, 0, 0.1);
+}
 	
 </style>
 
@@ -167,13 +204,13 @@ a.more-link {
 	</p>
 	<section class="error-container">
 		<span class="four"><span class="screen-reader-text">4</span></span> <span
-			class="zero"><span class="screen-reader-text">0</span></span> <span
-			class="four"><span class="screen-reader-text">3</span></span>
+			class="zero"><span class="screen-reader-text">0</span></span> 
+		<span class="four"><span class="screen-reader-text">3</span></span>
 	</section>
 	<div class="link-container">
-		<a target="_blank"
+		<a
 			href="index"
-			class="more-link">Back to the Homepage</a>
+			>Back to the Homepage</a>
 	</div>
 </body>
 </html>

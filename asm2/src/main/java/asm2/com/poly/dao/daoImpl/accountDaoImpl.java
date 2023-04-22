@@ -34,8 +34,7 @@ public class accountDaoImpl extends hibernateMethods<account> implements account
 
 	@Override
 	public List<account> findAll() {
-		super.findAll(account.class, true);
-		return null;
+		return super.findAll(account.class, true);
 	}
 
 	@Override

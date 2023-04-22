@@ -13,15 +13,15 @@
 	</classpathentry>
 	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
 		<attributes>
+			<attribute name="test" value="true"/>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
 		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="test" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
@@ -35,14 +35,49 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.testng.TESTNG_CONTAINER"/>
 	<classpathentry kind="src" path="target/generated-sources/annotations">
 		<attributes>
+			<attribute name="ignore_optional_problems" value="true"/>
 			<attribute name="optional" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="ignore_optional_problems" value="true"/>
 			<attribute name="m2e-apt" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-api-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-api-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-chrome-driver-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-chrome-driver-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-chromium-driver-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-chromium-driver-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-devtools-v85-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-devtools-v85-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-devtools-v109-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-devtools-v109-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-devtools-v110-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-devtools-v110-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-devtools-v111-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-devtools-v111-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-edge-driver-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-edge-driver-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-firefox-driver-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-firefox-driver-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-http-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-http-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-ie-driver-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-ie-driver-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-java-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-java-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-json-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-json-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-manager-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-manager-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-remote-driver-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-remote-driver-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-safari-driver-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-safari-driver-4.8.3-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-support-4.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Huy1721/Desktop/somekind/selenium-support-4.8.3-sources.jar"/>
 	<classpathentry kind="src" output="target/test-classes" path="target/generated-test-sources/test-annotations">
 		<attributes>
 			<attribute name="optional" value="true"/>

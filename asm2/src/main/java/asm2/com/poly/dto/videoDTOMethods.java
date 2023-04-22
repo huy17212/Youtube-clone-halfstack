@@ -62,7 +62,8 @@ public class videoDTOMethods {
 					(finalVariable.CURRENTDATE + "").substring((finalVariable.CURRENTDATE + "").lastIndexOf("-") + 1,
 							(finalVariable.CURRENTDATE + "").lastIndexOf("-") + 3));
 			int year1 = Integer.parseInt((finalVariable.CURRENTDATE + "").substring(0, 4));
-
+			
+			
 			if (year1 - year != 0) {
 				entity.setDayUpload(year1 - year + " years ago");
 			} else if (month1 - month != 0) {
@@ -85,13 +86,14 @@ public class videoDTOMethods {
 			}
 
 			boolean mySign = true; // sign danh dau day la listUuTien hay k UuTien
-			for (Cookie cookie : listCookie) {
-				if (cookie.getValue().length() <= 5 && cookie.getValue().equals(entity.getHashtag())) {
-					ListUuTien.add(entity);
-					mySign = false;
-					break;
+			if(listCookie != null)
+				for (Cookie cookie : listCookie) {
+					if (cookie.getValue().length() <= 5 && cookie.getValue().equals(entity.getHashtag())) {
+						ListUuTien.add(entity);
+						mySign = false;
+						break;
+					}
 				}
-			}
 			if (mySign) {
 				ListKhongUuTien.add(entity);
 			}
@@ -165,4 +167,63 @@ public class videoDTOMethods {
 		}
 		return ListVideoInIndex;
 	}
+	
+	public List<videoDTO> parseToListVideoDTOObject1(List<videoDTO> ListVideoInIndex, List<video> videos) {
+		List<repository> CurrentUserRepository = repositoryService.findAll();
+		
+		for (video item : videos) {
+			videoDTO entity = new videoDTO();
+			entity.setId(item.getId());
+			entity.setTitle(item.getTitle());
+			entity.setDiscription(item.getDiscription());
+			entity.setHref(item.getHref());
+			entity.setPoster(item.getPoster());
+			entity.setViews(item.getViews());
+			entity.setShares(item.getShares());
+			entity.setLikenumber(item.getLikenumber());
+			entity.setCommentnumber(item.getCommentnumber());
+
+			// Su ly tinh ngay video
+
+			int month = Integer.parseInt((item.getDatecreate() + "").substring(
+					(item.getDatecreate() + "").indexOf("-") + 1, (item.getDatecreate() + "").indexOf("-") + 3));
+			int day = Integer
+					.parseInt((item.getDatecreate() + "").substring((item.getDatecreate() + "").lastIndexOf("-") + 1,
+							(item.getDatecreate() + "").lastIndexOf("-") + 3));
+			int year = Integer.parseInt((item.getDatecreate() + "").substring(0, 4));
+
+			int month1 = Integer.parseInt(
+					(finalVariable.CURRENTDATE + "").substring((finalVariable.CURRENTDATE + "").indexOf("-") + 1,
+							(finalVariable.CURRENTDATE + "").indexOf("-") + 3));
+			int day1 = Integer.parseInt(
+					(finalVariable.CURRENTDATE + "").substring((finalVariable.CURRENTDATE + "").lastIndexOf("-") + 1,
+							(finalVariable.CURRENTDATE + "").lastIndexOf("-") + 3));
+			int year1 = Integer.parseInt((finalVariable.CURRENTDATE + "").substring(0, 4));
+
+			if (year1 - year != 0) {
+				entity.setDayUpload(year1 - year + " years ago");
+			} else if (month1 - month != 0) {
+				entity.setDayUpload(Math.abs(month1 - month) + " months ago");
+			} else if (day1 - day != 0) {
+				entity.setDayUpload(30 - day + " days ago");
+			} else {
+				entity.setDayUpload("few minutes ago");
+			}
+			entity.setHashtag(item.getHashtag());
+			entity.setUploader(item.getUploader());
+
+			for (repository inItem : CurrentUserRepository) {
+				if (inItem.getVideoid().getId().equals(item.getId())) {
+					account account = accountService.findById(inItem.getAccountid().getId());
+					entity.setAvatar(account.getAvatar());
+					entity.setIdUploader(inItem.getAccountid().getId());
+					break;
+				}
+			}
+			ListVideoInIndex.add(entity);
+
+		}
+		return ListVideoInIndex;
+	}
+
 }

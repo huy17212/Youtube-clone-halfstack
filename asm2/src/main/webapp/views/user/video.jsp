@@ -20,25 +20,33 @@
 
 	<div class="slidebar">
 		<div class="shortcut-links">
-			<a href=""> <img
-				src="<c:url value='templates/user/images/home.png'/>" alt="">
+			<a href="index"> <img
+				src="<c:url value='templates/user/images/home2.png'/>" alt="">
 				<p>Home</p>
-			</a> <a href=""> <img
+			</a> <a href="explore"> <img
 				src="<c:url value='templates/user/images/explore.png'/>" alt="">
 				<p>Explore</p>
-			</a> <a href=""> <img
-				src="<c:url value='templates/user/images/subscriprion.png'/>" alt="">
-				<p>Subcription</p>
-			</a> <a href=""> <img
-				src="<c:url value='templates/user/images/library.png'/>" alt="">
-				<p>Library</p>
-			</a> <a href=""> <img
-				src="<c:url value='templates/user/images/history.png'/>" alt="">
-				<p>History</p>
-			</a> <a href=""> <img
-				src="<c:url value='templates/user/images/playlist.png'/>" alt="">
-				<p>Playlist</p>
-			</a> <a href=""> <img
+			</a>
+			<c:if test="${not empty sessionScope.current_user}">
+				<a href="subscriprion"> <img
+					src="<c:url value='templates/user/images/subscriprion.png'/>"
+					alt="">
+					<p>Subcription</p>
+				</a>
+				<a href="library"> <img
+					src="<c:url value='templates/user/images/library.png'/>" alt="">
+					<p>Library</p>
+				</a>
+				<a href="history"> <img
+					src="<c:url value='templates/user/images/history.png'/>" alt="">
+					<p>History</p>
+				</a>
+				<a href="playlist"> <img
+					src="<c:url value='templates/user/images/playlist.png'/>" alt="">
+					<p>Playlist</p>
+				</a>
+			</c:if>
+			<a href=""> <img
 				src="<c:url value='templates/user/images/messages.png'/>" alt="">
 				<p>Messages</p>
 			</a> <a href=""> <img
@@ -57,8 +65,7 @@
 		</div>
 	</div>
 
-	<div style="margin-left: 60px; padding-left: 10px"
-		class="container play-container">
+	<div class="container">
 		<div class="row">
 			<div class="play-video">
 				<div>
@@ -72,9 +79,10 @@
 				<div class="tags">
 					<a href="">${video.hashtag}</a>
 				</div>
-				<h3>${video.title}</h3>
+				<h3 >${video.title}</h3>
 				<div class="play-video-info">
-					<p>${video.views}Views&bull;${video.dayUpload}</p>
+					<p>${video.views}&nbsp;Views&nbsp;&bull;&nbsp;
+						${video.dayUpload}</p>
 					<div class="buttonDesciption">
 
 						<button type="button" id="likeOrUnlike"
@@ -131,9 +139,7 @@
 						alt="">
 					<div>
 						<p>${video.uploader}</p>
-						<span>500k Subcribers</span> <span>userid
-							${sessionScope.current_user.id}</span> <span>idUploader
-							${video.idUploader}</span>
+						<span>${numberSubcriber} Subcribers</span>
 					</div>
 
 					<c:if test="${sessionScope.current_user.id ne video.idUploader}">
@@ -157,28 +163,24 @@
 					<hr>
 					<c:choose>
 						<c:when test="${not empty sessionScope.current_user}">
-							<h4>134 Comments</h4>
+							<h4>${video.commentnumber}Comments</h4>
 							<div class="add-comment">
 								<img
 									src="<c:url value='templates/user/images/${sessionScope.current_user.avatar}'/>"
-									alt=""> <input type="text" placeholder="Write comments">
+									alt=""> <input id="CurrentAccountComment" type="text"
+									placeholder="Write comments">
 							</div>
-							<div class="old-comment">
-								<img src="images/Jack.png" alt="">
-								<div>
-									<h3>
-										Jack Nicholson <span> 2 days ago</span>
-									</h3>
-									<p>This is the best video I can make, So pls subcribe my
-										channel for more video in the future.</p>
-									<div class="acomment-action">
-										<img src="<c:url value='templates/user/images/like.png'/>"
-											alt=""> <span>244</span> <img
-											src="<c:url value='templates/user/images/dislike.png'/>"
-											alt=""> <span>2</span> <span>REPLY</span> <a href="">All
-											Replies</a>
+
+							<div class="list_old_comment">
+								<c:forEach items='${listComment}' var='item'>
+									<div class="old-comment">
+										<img src="templates/user/images/${item.avatar}" alt="">
+										<div>
+											<h3>${item.nameChannel}</h3>
+											<p>${item.comment}</p>
+										</div>
 									</div>
-								</div>
+								</c:forEach>
 							</div>
 						</c:when>
 					</c:choose>
@@ -204,11 +206,65 @@
 
 
 	<input id="videoIdHiddent" type="hidden" value='${video.href}' />
+	<input id="videoid" type="hidden" value='${video.id}' />
 	<input id="videoLikeNumber" type="hidden" value='${video.likenumber}' />
 	<input id="videoShareNumber" type="hidden" value='${video.shares}' />
 	<input id="currenUserId" type="hidden" value='${video.idUploader}' />
+	<input id="sessionUserid" type="hidden"
+		value='${sessionScope.current_user.id}' />
+	<input id="avatar" type="hidden"
+		value='${sessionScope.current_user.avatar}' />
+	<input id="nameChannel" type="hidden"
+		value='${sessionScope.current_user.nameChannel}' />
+
+
+	<input id="reverse_like" type="hidden" value='${history.isliked}' />
+	<input id="reverse_share" type="hidden" value='${history.isshare}' />
+	<input id="reverse_later" type="hidden" value='${history.islater}' />
 
 	<script type="text/javascript">
+		var input = document.getElementById("CurrentAccountComment");
+
+		if (input != null) {
+			input.addEventListener("keypress", function(event) {
+				if (event.key === "Enter") {
+					event.preventDefault();
+					commentAComment();
+				}
+			});
+
+			function commentAComment() {
+				var videoid = $('#videoid').val();
+				var sessionUserid = $('#sessionUserid').val();
+				var avatar = $('#avatar').val();
+				var comment = input.value;
+				var nameChannel = $('#nameChannel').val();
+				alert(videoid);
+				$
+						.ajax({
+							type : 'POST',
+							url : '/asm2/addComment',
+							data : {
+								videoid : videoid,
+								currentuserid : sessionUserid,
+								comment : input.value
+							},
+							success : function(msg, a) {
+								let list_old_comment = $('.list_old_comment');
+								list_old_comment
+										.append("<div class='old-comment'> <img src='templates/user/images/"+avatar+"' alt=''> <div> <h3>"
+												+ nameChannel
+												+ "</h3> <p>"
+												+ comment + "</p></div> </div>");
+							},
+							error : function(XMLHttpRequest, textStatus,
+									errorThrown) {
+								alert("some error " + textStatus);
+							}
+						})
+			}
+		}
+
 		$('#likeOrUnlike').click(
 				function() {
 					var href = $('#videoIdHiddent').val();
@@ -227,6 +283,7 @@
 
 									$('#likenumber').html(likenumber);
 									$('#videoLikeNumber').val(likenumber);
+									$('#videoLikeNumber').val(false);
 								}).fail(function(err) {
 							swal({
 								title : "You Have to login to do this done!",
@@ -246,6 +303,7 @@
 									$('.likebutton').attr("id", "1");
 									$('#likenumber').html(likenumber + "");
 									$('#videoLikeNumber').val(likenumber);
+									$('#videoLikeNumber').val(true);
 								}).fail(function(err) {
 							swal({
 								title : "You Have to login to do this done!",

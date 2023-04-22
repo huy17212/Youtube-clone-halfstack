@@ -6,3 +6,4 @@ menuIcon.onclick = function(){
     slideBar.classList.toggle("small-sidebar");
     container.classList.toggle("large-container");
 }
+

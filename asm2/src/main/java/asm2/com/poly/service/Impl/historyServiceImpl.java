@@ -9,7 +9,7 @@ import asm2.com.poly.service.historyService;
 
 public class historyServiceImpl implements historyService {
 
-	public historyDao dao;
+	public historyDao dao = new historyDaoImpl();
 	
 	public historyServiceImpl() {
 		dao = new historyDaoImpl();
@@ -38,6 +38,11 @@ public class historyServiceImpl implements historyService {
 	@Override
 	public history update(history entity) {
 		return dao.update(entity);
+	}
+
+	@Override
+	public List<history> findByVideoid(Integer videoid) {
+		return dao.findByVideoid(videoid);
 	}
 	
 }

@@ -24,7 +24,7 @@ import asm2.com.poly.myException.failToRegister;
 import asm2.com.poly.service.accountService;
 import asm2.com.poly.service.Impl.accountServiceImpl;
 
-@WebServlet(urlPatterns = { "/login", "/logout", "/register", "/forgotpassword", "/subcriber"})
+@WebServlet(urlPatterns = { "/login", "/logout", "/register", "/forgotpassword", "/subcriber" })
 public class AccountController extends HttpServlet {
 	Boolean sign = false;
 	accountService service = new accountServiceImpl();
@@ -163,19 +163,21 @@ public class AccountController extends HttpServlet {
 	private void doGetLogin(HttpServletRequest req, HttpServletResponse resp) {
 		try {
 			Cookie[] cookies = req.getCookies();
-
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("username")) {
-					username = cookie.getValue();
-				}
-				if (cookie.getName().equals("password")) {
-					password = cookie.getValue();
+			if (cookies != null) {
+				for (Cookie cookie : cookies) {
+					if (cookie.getName().equals("username")) {
+						username = cookie.getValue();
+					}
+					if (cookie.getName().equals("password")) {
+						password = cookie.getValue();
+					}
 				}
 			}
 			account account = new accountServiceImpl().findByUsernameAndPassword(username, password);
 			if (account != null) {
 				resp.sendRedirect("autoLogin?id=" + account.getId());
-			};
+			}
+			;
 
 			req.getRequestDispatcher("views/user/login.jsp").forward(req, resp);
 		} catch (Exception e) {

@@ -37,6 +37,7 @@ public class videoDTO {
 
 	private String avatar;
 	
+
 	public Integer getIdUploader() {
 		return idUploader;
 	}

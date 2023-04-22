@@ -53,12 +53,12 @@ public class accountServiceImpl	implements accountService {
 
 	@Override
 	public account update(account entity) {
-		return service.create(entity);
+		return service.update(entity);
 	}
 
 	@Override
 	public account delete(account entity) {
-		return service.create(entity);
+		return service.delete(entity);
 	}
 
 }

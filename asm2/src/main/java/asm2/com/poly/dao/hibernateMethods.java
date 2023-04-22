@@ -67,7 +67,7 @@ public class hibernateMethods<T>{
 	public List<T> findMany (Class<T> clazz, String sql, Object ... params) {
 		TypedQuery<T> query = entityManger.createQuery(sql, clazz);
 		for(int i = 0; i < params.length; i++) {
-			query.setParameter(i, query);
+			query.setParameter(i,  params[i]);
 		}
 		return query.getResultList();
 	}

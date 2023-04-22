@@ -3,6 +3,7 @@ package asm2.com.poly.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpSession;
 import asm2.com.poly.containt.finalVariable;
 import asm2.com.poly.containt.killingAllThread;
 import asm2.com.poly.dao.daoImpl.subcriberServiceImpl;
+import asm2.com.poly.dto.Comment;
+import asm2.com.poly.dto.commentDTOMethods;
 import asm2.com.poly.dto.videoDTO;
 import asm2.com.poly.dto.videoDTOMethods;
 import asm2.com.poly.entity.account;
@@ -34,7 +37,7 @@ import asm2.com.poly.service.Impl.videoServiceImpl;
 import asm2.com.poly.thread.threadCountView;
 
 @WebServlet(urlPatterns = { "/watch", "/dislike", "/like", "/subcribe", "/unsubcribe", "/share", "/unshare", "/save",
-		"/unsave" })
+		"/unsave", "/addComment" })
 public class VideoController extends HttpServlet {
 
 	private videoService serviceVideo = new videoServiceImpl();
@@ -43,6 +46,42 @@ public class VideoController extends HttpServlet {
 	private history historyUserWatchVideo;
 	Boolean sign = false;
 	threadCountView thread;
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String whatServiceUNeed = req.getServletPath();
+		String href;
+		switch (whatServiceUNeed) {
+		case "/addComment": {
+			try {
+				resp.setContentType("text/plain");
+
+				Integer videoid = Integer.valueOf(req.getParameter("videoid"));
+				Integer currentuserid = Integer.valueOf(req.getParameter("currentuserid"));
+				String comment = req.getParameter("comment");
+
+				account account = (account) req.getSession().getAttribute(finalVariable.CURRENTUSER);
+
+				history history = serviceHistory.findByUserAndViewId(currentuserid, videoid);
+				if (history.getComment() == null) {
+					history.setComment(comment);
+				} else {
+					history.setComment(history.getComment() + "," + comment);
+				}
+				history histo = serviceHistory.update(history);
+				resp.setCharacterEncoding("UTF-8");
+
+				resp.getWriter().write(histo.getComment());
+				resp.getWriter().write(account.getAvatar());
+				resp.setStatus(200);
+				break;
+			} catch (Exception e) {
+				resp.setStatus(404);
+				e.printStackTrace();
+			}
+		}
+		}
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -110,13 +149,14 @@ public class VideoController extends HttpServlet {
 	private void doGetUnsave(HttpServletRequest req, HttpServletResponse resp, HttpSession sesstion, String href) {
 		account account = (account) sesstion.getAttribute(finalVariable.CURRENTUSER);
 		video video = serviceVideo.findByHref(href);
-		
+
 		repositoryStatus repo = new repositoryStatus();
 		repo.setId(2);
 		List<repository> repository = new repositoryServiceImpl().findAllByStatusId(account, repo);
-		
+
 		for (repository item : repository) {
-			if (item.getAccountid().getId().equals(account.getId()) && item.getVideoid().getId().equals(video.getId())) {
+			if (item.getAccountid().getId().equals(account.getId())
+					&& item.getVideoid().getId().equals(video.getId())) {
 				repository result1 = new repositoryServiceImpl().delete(item);
 				history historyUserWatchVideo = serviceHistory.findByUserAndViewId(account.getId(), video.getId());
 				historyUserWatchVideo.setIslater(false);
@@ -174,8 +214,27 @@ public class VideoController extends HttpServlet {
 			historyUserWatchVideo.setIsshare(false);
 			video.setShares(video.getShares() - 1);
 
+			repositoryStatus repo = new repositoryStatus();
+			repo.setId(1);
+			
 			video result1 = serviceVideo.update(video);
 			history result2 = serviceHistory.update(historyUserWatchVideo);
+			List<repository> repository = new repositoryServiceImpl().findAllByStatusId(account, repo);
+			
+			for (repository item : repository) {
+				if (item.getAccountid().getId().equals(account.getId())
+						&& item.getVideoid().getId().equals(video.getId())) {
+					repository re = new repositoryServiceImpl().delete(item);
+					if (result1 != null && result2 != null) {
+						resp.setStatus(204);
+						return;
+					} else {
+						resp.setStatus(400);
+						return;
+					}
+				}
+			}
+			
 
 			if (result1 != null && result2 != null) {
 				resp.setStatus(204);
@@ -209,8 +268,9 @@ public class VideoController extends HttpServlet {
 			repository.setDatecreate(finalVariable.CURRENTDATE);
 			repository.setDateupdate(finalVariable.CURRENTDATE);
 			repositoryStatus repo = new repositoryStatus();
-			repo.setId(2);
+			repo.setId(1);
 			repository.setStatusid(repo);
+			repository = new repositoryServiceImpl().create(repository);
 
 			if (result1 != null && result2 != null) {
 				resp.setStatus(204);
@@ -344,27 +404,44 @@ public class VideoController extends HttpServlet {
 	private void doGetWatch(HttpServletRequest req, HttpServletResponse resp, String href, HttpSession session) {
 		try {
 			video videok = serviceVideo.findByHref(href);
-			System.out.println("idvideo" + videok.getId());
 			String whatServiceUNeed = req.getServletPath();
 			Cookie[] arrayCookie = req.getCookies();
 			List<Cookie> listCookie = Arrays.asList(arrayCookie);
 
+			// get list subcriber
 			account currentUser = (account) session.getAttribute(finalVariable.CURRENTUSER);
 			if (currentUser != null) {
 				subcriber subcriber = serviceSubcriber.findById(currentUser.getId());
 				arrSubcribe = subcriber.getListsubcriber().split(",");
 			}
 
+			// get list comment in video
+
+			historyService service = new historyServiceImpl();
+			List<history> historyl = service.findByVideoid(videok.getId());
+			List<Comment> list = new commentDTOMethods().TranformToUsefulListComment(historyl);
+
+			req.setAttribute("listComment", list);
+
 			listvideo = new videoDTOMethods().parseToListVideoDTOObject(listvideo, listCookie);
 
 			for (videoDTO item : listvideo) {
-				if (item.getHref().equals(videok.getHref()))
+				if (item.getHref().equals(videok.getHref())) {
 					video = item;
+					break;
+				}
 			}
 
 			req.setAttribute("videos", listvideo);
 			req.setAttribute("video", video);
-
+			
+			if(finalVariable.HISTORYVIDEOLIST.stream().anyMatch(item -> item.getId().equals(video.getId()))) {
+				
+			}else {
+				finalVariable.HISTORYVIDEOLIST.add(video);
+			}
+			
+			session.setAttribute("HISTORYVIDEOLIST", finalVariable.HISTORYVIDEOLIST);
 			account currentuser = (account) session.getAttribute(finalVariable.CURRENTUSER);
 
 			if (currentuser != null) {
@@ -400,6 +477,7 @@ public class VideoController extends HttpServlet {
 				}
 			}
 			Boolean isSubcribe = true;
+			Integer numberSubcriber = 0;
 			try {
 				if (currentUser != null) {
 					for (String item : arrSubcribe) {
@@ -411,6 +489,8 @@ public class VideoController extends HttpServlet {
 			} catch (Exception e) {
 				isSubcribe = true;
 			}
+
+			req.setAttribute("numberSubcriber", arrSubcribe == null ? 0 : arrSubcribe.length);
 			req.setAttribute("isSubcribe", isSubcribe);
 
 			if (session.getAttribute(finalVariable.CURRENTUSER) != null) {

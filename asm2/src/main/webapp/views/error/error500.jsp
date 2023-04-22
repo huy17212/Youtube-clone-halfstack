@@ -302,21 +302,61 @@ a.more-link {
 	margin-top: 50px;
 	letter-spacing: 1px;
 }
+.error-container>span.five {
+	width: 136px;
+	height: 43px;
+	border-radius: 999px;
+	background: linear-gradient(140deg, rgba(0, 0, 0, 0.1) 0%,
+		rgba(0, 0, 0, 0.07) 43%, transparent 44%, transparent 100%),
+		linear-gradient(105deg, transparent 0%, transparent 40%, rgba(0, 0, 0,
+		0.06) 41%, rgba(0, 0, 0, 0.07) 76%, transparent 77%, transparent 100%),
+		linear-gradient(to right, #d89ca4, #e27b7e);
+}
+
+.error-container>span.five:before, .error-container>span.five:after {
+	content: '';
+	display: block;
+	position: absolute;
+	border-radius: 999px;
+}
+
+.error-container>span.five:before {
+	width: 43px;
+	height: 156px;
+	left: 60px;
+	bottom: -43px;
+	background: linear-gradient(128deg, rgba(0, 0, 0, 0.1) 0%,
+		rgba(0, 0, 0, 0.07) 40%, transparent 41%, transparent 100%),
+		linear-gradient(116deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.07) 50%,
+		transparent 51%, transparent 100%),
+		linear-gradient(to top, #99749D, #B895AB, #CC9AA6, #D7969E, #E0787F);
+}
+
+.error-container>span.five:after {
+	width: 137px;
+	height: 43px;
+	transform: rotate(-49.5deg);
+	left: -18px;
+	bottom: 36px;
+	background: linear-gradient(to right, #99749D, #B895AB, #CC9AA6, #D7969E, #E0787F);
+}
+
+
 </style>
 </head>
 <body>
 	<h1>500 Error Page</h1>
 	<p class="zoom-area">
-		<b>Sign: </b> Error from server, please do this again.
+		<b>Sign: </b> Error from server, please do this again. Hoặc có thể bạn chưa coi cái gì nên k thể có được lịch sử, thử coi vài video rồi vào lại đây nhé. Cục cưng
 	</p>
 	<section class="error-container">
-		<span class="four"><span class="screen-reader-text">5</span></span> <span
+		<span class="five"><span class="screen-reader-text">5</span></span> <span
 			class="zero"><span class="screen-reader-text">0</span></span> <span
-			class="four"><span class="screen-reader-text">0</span></span>
+			class="zero"><span class="screen-reader-text">0</span></span>
 	</section>
 	<div class="link-container">
-		<a target="_blank"
-			href="https://www.silocreativo.com/en/creative-examples-404-error-css/"
+		<a
+			href="index"
 			class="more-link">Back to the Homepage</a>
 	</div>
 </body>

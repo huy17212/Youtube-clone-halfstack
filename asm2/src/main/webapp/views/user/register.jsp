@@ -44,9 +44,9 @@
 			</div>
 
 			<div>
-				<input type="file" name="file"> <br>
+				<input type="file" name="avatar"> <br>
 			</div>
-			<input style="margin-top: 10px;" type="submit">
+			<input  class="sub" style="margin-top: 10px;" type="submit">
 		</form>
 	</div>
 

@@ -92,6 +92,8 @@
   box-shadow: -2px 2px 2px 0px rgba(0, 0, 0, 0.1);
 }
 
+
+
 .screen-reader-text {
     position: absolute;
     top: -9999em;
@@ -161,7 +163,7 @@ a.more-link {
 <link href="templates/user/css/error_page.css">
 </head>
 <body>
-	<h1>404 Lỗi không tìm thấy trang, Error code: 403</h1>
+	<h1>404 Lỗi không tìm thấy trang, Error code: 404</h1>
 	<p class="zoom-area">
 		<b>Sign: </b> Don't leave us, just back out this page and make a simple login.
 	</p>
@@ -171,9 +173,9 @@ a.more-link {
 			class="four"><span class="screen-reader-text">4</span></span>
 	</section>
 	<div class="link-container">
-		<a target="_blank"
-			href="https://www.silocreativo.com/en/creative-examples-404-error-css/"
-			class="more-link">Back to the Homepage</a>
+		<a
+			href="index"
+			class="more-link">Back to the Index</a>
 	</div>
 </body>
 </html>

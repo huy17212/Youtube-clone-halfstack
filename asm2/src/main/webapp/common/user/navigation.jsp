@@ -12,7 +12,7 @@
 
 			<form action="find" method="get">
 				<input name="fin" type="text" placeholder="Search">
-				<button style="border: none; background-color: white" type="submit">
+				<button name="buton" style="border: none; background-color: white" type="submit">
 					<img src="<c:url value='templates/user/images/search.png'/>"
 						class="">
 				</button>
@@ -38,7 +38,7 @@
 			</c:when>
 			<c:otherwise>
 				<form action="login">
-					<button
+					<button class="sub"
 						style="font-size: 20px; padding: 10px 20px 10px 20px; background: white; color: blue; border-radius: 30px"
 						type="submit">Login</button>
 				</form>

@@ -12,4 +12,5 @@ public class finalVariable {
 	public static final String CURRENTUSER = "current_user";
 	public static final String CURRENTVIDEO = "current_video";
 	public static final Date CURRENTDATE = new java.sql.Date(millis);
+	public static final List<videoDTO> HISTORYVIDEOLIST = new ArrayList<>();
 }

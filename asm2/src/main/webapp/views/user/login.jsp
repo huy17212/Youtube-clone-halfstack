@@ -30,9 +30,9 @@
         <div>
             <input name="rememberme" type="checkbox">
             <label for="">Remember me</label>
-            <a style="text-decoration: none; cursor: pointer;" href="register"><label style="margin: 0px 0px 0px 110px;RIGHTcursor: pointer; color: #0984e3;" for="">Create account</label></a>
+            <a class="ka" style="text-decoration: none; cursor: pointer;" href="register"><label style="margin: 0px 0px 0px 110px;RIGHTcursor: pointer; color: #0984e3;" for="">Create account</label></a>
         </div>
-        <input style="margin-top: 10px;" type="submit">
+        <input class="sub" style="margin-top: 10px;" type="submit">
       </form>
     </div>
      

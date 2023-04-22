@@ -124,6 +124,11 @@ public class account {
 	public void setDateupdate(Date dateupdate) {
 		this.dateupdate = dateupdate;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "account [id=" + id + ", accountusername=" + accountusername + ", email=" + email + ", accountpassword="
+				+ accountpassword + ", avatar=" + avatar + ", isadmin=" + isadmin + ", isactive=" + isactive
+				+ ", datecreate=" + datecreate + ", dateupdate=" + dateupdate + ", nameChannel=" + nameChannel + "]";
+	}
 }

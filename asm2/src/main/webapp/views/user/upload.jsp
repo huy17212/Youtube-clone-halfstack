@@ -137,23 +137,31 @@
 			</a> <a href="explore"> <img
 				src="<c:url value='templates/user/images/explore.png'/>" alt="">
 				<p>Explore</p>
-			</a> <a href="subcription"> <img
-				src="<c:url value='templates/user/images/subscriprion.png'/>" alt="">
-				<p>Subcription</p>
-			</a> <a href="<c:url value='library'/>"><img
-				src="<c:url value='templates/user/images/library2.png'/>" alt="">
-				<p>Library</p> </a> <a href="history"> <img
-				src="<c:url value='templates/user/images/history.png'/>" alt="">
-				<p>History</p>
-			</a> <a href="share"> <img
-				src="<c:url value='templates/user/images/playlist.png'/>" alt="">
-				<p>Playlist</p>
-			</a> <a href=""> <img
+			</a>
+			<c:if test="${not empty sessionScope.current_user}">
+				<a href="subcription"> <img
+					src="<c:url value='templates/user/images/subscriprion.png'/>"
+					alt="">
+					<p>Subcription</p>
+				</a>
+				<a href="<c:url value='library'/>"><img
+					src="<c:url value='templates/user/images/library2.png'/>" alt="">
+					<p>Library</p> </a>
+				<a href="history"> <img
+					src="<c:url value='templates/user/images/history.png'/>" alt="">
+					<p>History</p>
+				</a>
+				<a href="playlist"> <img
+					src="<c:url value='templates/user/images/playlist.png'/>" alt="">
+					<p>Playlist</p>
+				</a>
+			</c:if>
+			<a href=""> <img
 				src="<c:url value='templates/user/images/messages.png'/>" alt="">
 				<p>Messages</p>
-			</a> <a href=""> <img
+			</a> <a href="AdminPowerSystem"> <img
 				src="<c:url value='templates/user/images/show-more.png'/>" alt="">
-				<p>Show</p>
+				<p>Admin mode</p>
 			</a>
 			<hr>
 			<div class="subcribed-list">
